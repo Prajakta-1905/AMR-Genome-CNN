@@ -15,3 +15,6 @@ data/genomes/
 
 # Raw datasets
 data/raw/
+
+# ZIP archive of dataset
+data.zip
