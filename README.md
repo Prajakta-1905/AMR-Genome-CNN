@@ -65,11 +65,7 @@ The first approach establishes a conventional machine learning baseline.
 
 Each bacterial genome is represented using the frequency distribution of all possible 5-nucleotide sequences (5-mers).
 
-With four possible nucleotides, this produces:
-
-\[
-4^5 = 1024 \text{ features}
-\]
+With four possible nucleotides, this produces: 4x5= 1024 features
 
 These features represent the frequency of different short DNA sequence patterns across each genome.
 
@@ -98,6 +94,27 @@ The resulting genome-level embeddings have 768 dimensions and are used as input 
 
 This approach investigates whether pretrained representations of DNA sequence information can provide useful features for antimicrobial resistance prediction.
 
+Architecture:
+
+                Genome Sequence
+                       |
+                       v
+                  DNABERT-2
+               (Pretrained, Frozen)
+                       |
+                       v
+           768-Dimensional Embedding
+                       |
+                       v
+              Logistic Regression
+                       |
+                       v
+              Resistance Prediction
+                 /           \
+                v             v
+           Resistant      Susceptible
+
+
 ### 3. CNN + Attention-based Multiple Instance Learning
 
 The third approach uses a custom deep learning architecture designed to process bacterial genomes as collections of smaller genomic regions.
@@ -115,9 +132,34 @@ The CNN acts as a feature extractor, producing window-level representations. An 
 
 The attention mechanism is intended to learn the relative contribution of different genomic windows to the final genome-level prediction.
 
-The model was trained using a validation-based checkpoint selection strategy.
-<img width="278" height="236" alt="image" src="https://github.com/user-attachments/assets/669d61f5-ee07-4d69-a235-f54369436892" />
+Architecture:
 
+                 Genome Sequence
+                       |
+                       v
+             Overlapping DNA Windows
+                (500 bp, 250 bp stride)
+                       |
+                       v
+                    1D CNN
+                       |
+                       v
+              Window Embeddings
+                       |
+                       v
+                 Attention-MIL
+                       |
+                       v
+           Genome-Level Representation
+                       |
+                       v
+                Genome Classifier
+                       |
+                       v
+              Resistance Prediction
+                 /           \
+                v             v
+           Resistant      Susceptible
 
 ## Model Evaluation
 
