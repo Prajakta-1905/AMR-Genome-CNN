@@ -65,7 +65,7 @@ The first approach establishes a conventional machine learning baseline.
 
 Each bacterial genome is represented using the frequency distribution of all possible 5-nucleotide sequences (5-mers).
 
-With four possible nucleotides, this produces: 4x5= 1024 features
+With four possible nucleotides, this produces: 4^5= 1024 features
 
 These features represent the frequency of different short DNA sequence patterns across each genome.
 
